@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8085'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://codecraft-production-e07f.up.railway.app'
 
 const api = axios.create({
   baseURL: `${BACKEND_URL}/api`,
