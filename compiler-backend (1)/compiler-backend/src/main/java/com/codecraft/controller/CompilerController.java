@@ -43,21 +43,37 @@ public class CompilerController {
      * Frontend then either polls GET /api/result/{jobId}
      * OR subscribes to WebSocket /topic/output/{jobId} for real-time push.
      */
+//    @PostMapping("/run")
+//    public ResponseEntity<SubmitResponse> run(@Valid @RequestBody CodeRequest request) {
+//        String jobId = UUID.randomUUID().toString();
+//        log.info("New run job {} — language: {}", jobId, request.getLanguage());
+//
+//        // Fire and forget — result pushed via WebSocket
+//        executorService.executeAsync(jobId, request);
+//
+//        return ResponseEntity.accepted().body(
+//            SubmitResponse.builder()
+//                .jobId(jobId)
+//                .status("queued")
+//                .submittedAt(Instant.now().toEpochMilli())
+//                .build()
+//        );
+//    }
+
     @PostMapping("/run")
-    public ResponseEntity<SubmitResponse> run(@Valid @RequestBody CodeRequest request) {
+    public ResponseEntity<?> run(@RequestBody CodeRequest request) {
+
+        System.out.println("🔥 API HIT");
+
         String jobId = UUID.randomUUID().toString();
-        log.info("New run job {} — language: {}", jobId, request.getLanguage());
 
-        // Fire and forget — result pushed via WebSocket
-        executorService.executeAsync(jobId, request);
+        // ❌ COMMENT THIS LINE
+        // executorService.executeAsync(jobId, request);
 
-        return ResponseEntity.accepted().body(
-            SubmitResponse.builder()
-                .jobId(jobId)
-                .status("queued")
-                .submittedAt(Instant.now().toEpochMilli())
-                .build()
-        );
+        return ResponseEntity.ok(Map.of(
+                "jobId", jobId,
+                "status", "test-working"
+        ));
     }
 
     /**
